@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+    <layer
+        name="upfront.pagetracker"
+        interface="upfront.pagetracker.interfaces.IUpfrontPageTrackerLayer" />
+</layers>
