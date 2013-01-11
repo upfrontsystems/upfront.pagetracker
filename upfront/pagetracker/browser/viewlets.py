@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from upfront.pagetracker import MessageFactory as _
 from upfront.pagetracker.interfaces import IUpfrontPageTrackerLayer
+from upfront.pagetracker.interfaces import IPageTracker
 
 grok.context(Interface)
 grok.layer(IUpfrontPageTrackerLayer)
@@ -20,7 +21,9 @@ class PageTrackingViewlet(grok.Viewlet):
     def update(self):
         """ XXX Log  """
         print 'Log to page tracker'
-        # log = getUtility(IPageTrackingUtility)
+        print self.context.absolute_url()
+        pagetracker = getUtility(IPageTracker)
+        print pagetracker.log()
         return
 
     def render(self):

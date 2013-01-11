@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <utilities>
+    <utility
+      interface="upfront.pagetracker.interfaces.IPageTracker"
+      factory="upfront.pagetracker.pagetracker.PageTracker"
+    />
+  </utilities>
+</componentregistry>
