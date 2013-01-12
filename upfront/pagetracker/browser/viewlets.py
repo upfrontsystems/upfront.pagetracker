@@ -27,7 +27,7 @@ class PageTrackingViewlet(grok.Viewlet):
         mt = getToolByName(self.context, 'portal_membership')
         user = mt.getAuthenticatedMember().getUserName()
         now = datetime.datetime.now()
-        datetime_str = now.strftime('%d/%m/%Y, %H:%M:%S')
+        datetime_str = now.strftime('%d/%m/%Y %H:%M:%S')
 
         data = { "time" : datetime_str,
                  "url"  : self.request['URL'],
