@@ -12,8 +12,9 @@ from upfront.pagetracker import MessageFactory as _
 from upfront.pagetracker.interfaces import IPageTracker
 
 class ExportLoggedRequestsView(grok.View):
-    """ Export all learners from a classlist into a CSV file, do nothing if the
-        class is empty.
+    """ Export the requests for a given date range as CSV file with the
+        following columns: time, path, username
+        optional start_date and end_date must be in epoch time format
     """
     grok.context(Interface)
     grok.name('export-logged-requests')
