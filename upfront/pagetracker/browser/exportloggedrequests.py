@@ -27,12 +27,14 @@ class ExportLoggedRequestsView(grok.View):
         """
 
         # get optional parameters off the request
-        start_date = int(self.request.get('start_date', ''))
-        end_date = int(self.request.get('end_date', ''))
+        start_date = self.request.get('start_date', '')
+        end_date = self.request.get('end_date', '')
 
         pagetracker = getUtility(IPageTracker)
         if start_date != '' and end_date != '':
-            log_entries = pagetracker.logged_data(start_date, end_date)
+            start = int(start_date)
+            end = int(end_date)
+            log_entries = pagetracker.logged_data(start, end)
         else:
             log_entries = pagetracker.logged_data()
 
