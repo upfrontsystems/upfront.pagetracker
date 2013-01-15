@@ -21,7 +21,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
         self.assertEqual(test[0].type,'info')
         self.assertEqual(test[0].message,'No log entries exist')
 
-        # create 2 entries in the log
+        # create 1 entry in the log
         self.browser.open(self.portal.absolute_url() + '/login_form')
         now = datetime.datetime.now()
         datetime_str = now.strftime('%d/%m/%Y %H:%M:%S')
