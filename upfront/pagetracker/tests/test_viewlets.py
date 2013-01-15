@@ -17,11 +17,13 @@ class TestPageTrackingViewlet(UpfrontPageTrackerTestBase):
         layer = IUpfrontPageTrackerLayer
         viewlet = self._find_viewlet(context, manager_name, viewlet_name, layer)
 
+        pagetracker = getUtility(IPageTracker)
+        pagetracker._clear_log() # clear potential leftovers from unit tests
+
         viewlet[0].update()
         now = datetime.datetime.now()
         datetime_str = now.strftime('%d/%m/%Y %H:%M:%S')
-
-        pagetracker = getUtility(IPageTracker)
+        
         result = pagetracker.logged_data()
         self.assertEqual(result[0][1][0]['url'],'http://nohost')
         self.assertEqual(result[0][1][0]['user'],'test-user')

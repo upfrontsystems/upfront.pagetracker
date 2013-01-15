@@ -15,6 +15,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 
 from plone.testing import z2
+from plone.testing.z2 import Browser
 
 PROJECTNAME = "upfront.pagetracker"
 
@@ -47,6 +48,10 @@ class UpfrontPageTrackerTestBase(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.intids = getUtility(IIntIds)
         self.request = self.layer['request']
+        app = self.layer['app']
+
+        self.browser = Browser(app)
+        self.browser.handleErrors = False
 
     def _find_viewlet(self, context, manager_name, viewlet_name, layer=None):
         request = self.portal.REQUEST

@@ -45,4 +45,8 @@ class PageTracker(Persistent):
 
         return log_entries
 
+    def _clear_log(self):
+        """ Remove all entries from the log (use as auxilary for unit tests)
+        """
+        self.pagetracker.clear()
 

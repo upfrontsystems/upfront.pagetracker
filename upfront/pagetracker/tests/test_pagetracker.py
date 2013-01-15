@@ -14,8 +14,10 @@ class TestPageTracker(UpfrontPageTrackerTestBase):
                  "url"  : 'http://test',
                  "user" : 'userone' }
         pagetracker = getUtility(IPageTracker)
+        pagetracker._clear_log() # clear potential leftovers from unit tests
         pagetracker.log(data)
         result = pagetracker.logged_data()
+#        import pdb; pdb.set_trace()
         self.assertEqual(result[0][1][0]['time'],'time')
         self.assertEqual(result[0][1][0]['url'],'http://test')
         self.assertEqual(result[0][1][0]['user'],'userone')
@@ -27,6 +29,7 @@ class TestPageTracker(UpfrontPageTrackerTestBase):
                  "url"  : 'http://test',
                  "user" : 'userone' }
         pagetracker = getUtility(IPageTracker)
+        pagetracker._clear_log() # clear potential leftovers from unit tests
         pagetracker.log(data)
         # specify wide time range
         start = int(time())-1000
@@ -35,3 +38,4 @@ class TestPageTracker(UpfrontPageTrackerTestBase):
         self.assertEqual(result[0][1][0]['time'],'time')
         self.assertEqual(result[0][1][0]['url'],'http://test')
         self.assertEqual(result[0][1][0]['user'],'userone')
+
