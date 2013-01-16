@@ -1,4 +1,5 @@
 import datetime
+from time import time
 from zope.component import getUtility
 from z3c.form.i18n import MessageFactory as _
 from Products.statusmessages.interfaces import IStatusMessage
@@ -35,3 +36,16 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
         self.assertEqual(test_out,csv_ref)
         ct = self.request.response.getHeader("Content-Type")
         self.assertEqual(ct,"text/csv")
+
+        start = str(int(time())-500)
+        end = str(int(time()))
+
+        # test with some date paramenters on the request
+        self.request.set('start_date',start)
+        self.request.set('end_date',end)
+        view = self.portal.restrictedTraverse('@@export-logged-requests')
+        test_out = view()
+        self.assertEqual(test_out,csv_ref)
+        ct = self.request.response.getHeader("Content-Type")
+        self.assertEqual(ct,"text/csv")
+
