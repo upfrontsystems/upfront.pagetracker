@@ -20,7 +20,7 @@ class ExportLoggedRequestsView(grok.View):
     grok.name('export-logged-requests')
     grok.require('zope2.View')
 
-    def __call__(self):
+    def logged_requests_csv(self):
         """ Export the requests for a given date range as CSV file with the
             following columns: time, path, username
             optional start_date and end_date must be in epoch time format
@@ -64,6 +64,19 @@ class ExportLoggedRequestsView(grok.View):
             csv_content = log_csv.getvalue()
             log_csv.close()
 
+        return csv_content
+
+
+    def __call__(self):
+        """ Export the requests for a given date range as CSV file with the
+            following columns: time, path, username
+            optional start_date and end_date must be in epoch time format
+            Return content as http response or return info IStatusMessage
+        """
+
+        csv_content = self.logged_requests_csv()
+
+        if csv_content is not None:
             now = DateTime()
             nice_filename = '%s_%s' % ('requestlog_', now.strftime('%Y%m%d'))
 
@@ -76,9 +89,7 @@ class ExportLoggedRequestsView(grok.View):
                                             DateTime.rfc822(DateTime()))
             self.request.response.setHeader("Cache-Control", "no-store")
             self.request.response.setHeader("Pragma", "no-cache")
-
             self.request.response.write(csv_content)
-
         else:
             msg = _('No log entries exist')
             IStatusMessage(self.request).addStatusMessage(msg,"info")
