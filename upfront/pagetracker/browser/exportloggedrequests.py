@@ -68,10 +68,7 @@ class ExportLoggedRequestsView(grok.View):
 
 
     def __call__(self):
-        """ Export the requests for a given date range as CSV file with the
-            following columns: time, path, username
-            optional start_date and end_date must be in epoch time format
-            Return content as http response or return info IStatusMessage
+        """ Return csv content as http response or return info IStatusMessage
         """
 
         csv_content = self.logged_requests_csv()
