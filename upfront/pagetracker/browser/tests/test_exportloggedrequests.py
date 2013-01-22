@@ -17,7 +17,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
         pagetracker._clear_log() # clear potential leftovers from unit tests
 
         view = self.portal.restrictedTraverse('@@export-logged-requests')
-        test_out = view()
+        test_out = view.logged_requests_csv()
         self.assertEqual(test_out,None)
 
         # create 1 entry in the log
@@ -27,7 +27,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
 
         view = self.portal.restrictedTraverse('@@export-logged-requests')
 
-        test_out = view()
+        test_out = view.logged_requests_csv()
         csv_ref = datetime_str +\
                   ',http://nohost/plone/login_form,Anonymous User\r\n'
 
@@ -40,7 +40,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
         self.request.set('start_date',start)
         self.request.set('end_date',end)
         view = self.portal.restrictedTraverse('@@export-logged-requests')
-        test_out = view()
+        test_out = view.logged_requests_csv()
         self.assertEqual(test_out,csv_ref)
 
     def test__call__(self):
