@@ -18,7 +18,7 @@ class ExportLoggedRequestsView(grok.View):
     """
     grok.context(Interface)
     grok.name('export-logged-requests')
-    grok.require('zope2.View')
+    grok.require('cmf.ManagePortal')
 
     def logged_requests_csv(self):
         """ Export the requests for a given date range as CSV file with the
