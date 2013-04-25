@@ -43,7 +43,8 @@ class ExportLoggedRequestsView(grok.View):
 
         if log_entries is not None and len(log_entries) > 0:
             writer = DictWriter(log_csv,
-                                fieldnames=['time', 'path', 'username'],
+                                fieldnames=['time', 'path', 'username',
+                                            'province','school'],
                                 restval='',
                                 extrasaction='ignore',
                                 dialect='excel'
@@ -54,10 +55,11 @@ class ExportLoggedRequestsView(grok.View):
     
                 # iterate over entries that happened at the same epoch (if any)
                 for item in range(len(log_entries[entry][1])):
-    
                     ldict={'time': log_entries[entry][1][item]['time'],
                            'path': log_entries[entry][1][item]['url'],
                            'username': log_entries[entry][1][item]['user'],
+                           'province': log_entries[entry][1][item]['province'],
+                           'school': log_entries[entry][1][item]['school'],
                           }
                     writer.writerow(ldict)
             
