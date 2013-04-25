@@ -25,13 +25,16 @@ class PageTrackingViewlet(grok.Viewlet):
         """
 
         mt = getToolByName(self.context, 'portal_membership')
-        user = mt.getAuthenticatedMember().getUserName()
+        user = mt.getAuthenticatedMember()        
         now = datetime.datetime.now()
         datetime_str = now.strftime('%d/%m/%Y %H:%M:%S')
 
-        data = { "time" : datetime_str,
-                 "url"  : self.request['URL'],
-                 "user" : user }
+        data = { "time"     : datetime_str,
+                 "url"      : self.request['URL'],
+                 "user"     : user.getUserName(),
+                 "province" : user.getProperty('province'),
+                 "school"   : user.getProperty('school'),
+         }
 
         pagetracker = getUtility(IPageTracker)
         pagetracker.log(data)
@@ -40,3 +43,4 @@ class PageTrackingViewlet(grok.Viewlet):
         """ No-op to keep grok.Viewlet happy
         """
         return ''
+
