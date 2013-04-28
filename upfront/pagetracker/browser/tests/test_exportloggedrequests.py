@@ -29,7 +29,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
 
         test_out = view.logged_requests_csv()
         csv_ref = datetime_str +\
-                  ',http://nohost/plone/login_form,Anonymous User\r\n'
+                  ',http://nohost/plone/login_form,Anonymous User,,\r\n'
 
         self.assertEqual(test_out,csv_ref)
 
@@ -64,7 +64,7 @@ class TestExportLoggedRequestsView(UpfrontPageTrackerTestBase):
 
         test_out = view()
         csv_ref = datetime_str +\
-                  ',http://nohost/plone/login_form,Anonymous User\r\n'
+                  ',http://nohost/plone/login_form,Anonymous User,,\r\n'
 
         self.assertEqual(test_out,csv_ref)
         ct = self.request.response.getHeader("Content-Type")
