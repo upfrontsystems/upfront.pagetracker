@@ -51,16 +51,17 @@ class ExportLoggedRequestsView(grok.View):
                                )
 
             # iterate over log entries
-            for entry in range(len(log_entries)):
-    
-                # iterate over entries that happened at the same epoch (if any)
-                for item in range(len(log_entries[entry][1])):
-                    ldict={'time': log_entries[entry][1][item]['time'],
-                           'path': log_entries[entry][1][item]['url'],
-                           'username': log_entries[entry][1][item]['user'],
-                           'province': log_entries[entry][1][item]['province'],
-                           'school': log_entries[entry][1][item]['school'],
-                          }
+            for key, requests in log_entries:
+                for entry in requests:
+                    if entry.get('province') is None:
+                        continue
+                    ldict={
+                        'time': entry.get('time'),
+                        'path': entry.get('url'),
+                        'username': entry.get('user'),
+                        'province': entry.get('province'),
+                        'school': entry.get('school'),
+                        }
                     writer.writerow(ldict)
             
             csv_content = log_csv.getvalue()
